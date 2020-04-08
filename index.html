@@ -14,20 +14,20 @@
         <div class="empty"></div>
         <div id="main">
             <h1>My To-Do List</h1>
-            <div class="toDoItem">
-                <span class="unchecked check"></span> 
-                <form><input type="checkbox" class="toDoItemCheckbox"></form>
-                <span class="toDoItemCaption">This is the caption of the to-do item</span>
-                <form><input type="button" class="ToDoItemDelete" value="X">
-                </form>
+            <div id="listOfToDos">
+                <div class="toDoItem">
+                    <form><input type="checkbox" class="toDoItemCheckbox"></form>
+                    <span class="toDoItemCaption">sample to-do item that is NOT in the API</span>
+                    <form><input type="button" class="ToDoItemDelete" value="X"></form>
+                </div>
             </div>
             <span id="lineSpacer"></span>
 
 
             <div id="add">
-                <form>
+                <form id="addForm">
                     <p id="addTitle">Add an item to your to-do list</p>
-                    <input type="text" placeholder="caption">
+                    <input type="text" placeholder="caption" name="caption">
                     <input type="submit">
                 </form>
             </div>
