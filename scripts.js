@@ -1,35 +1,35 @@
 
 // on start up
-var xhttp = new XMLHttpRequest();
-xhttp.open("GET", "https://cse204.work/todos", true)
-xhttp.send()
-
-
-xhttp.setRequestHeader("x-api-key", "82436b-8c4f08-848b4a-ef5e67-b1bebb");
-
+sendRequest("GET");
+//addNew();
 
 function addNew() {
-  
-    if(this.readyState == 4 && this.status == 200) {
-        
-    }
-    return xhttp.open("POST", "https://cse204.work/todos", true)
+    sendRequest("POST", { "text": "Another new thing" });
 }
 
-function sendRequest (type) {
-    var xhttp = new XMLHttpRequest;
-    xhttp.open(type, "https://cse204.work/todos");
-    xhttp.responseType = 'json';
-    xhttp.onload = function () {
-        var response = xhttp.response;
+
+
+function sendRequest(type, data) {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var parsedToDos = JSON.parse(this.responseText);
+            console.log(parsedToDos);
+        }
+        else if (this.readyState == 4) { //this means this.status isn't 200
+            console.log(this.responseText);
+        }
+    }
+    
+    xhttp.open(type, "https://cse204.work/todos", true);
+    xhttp.setRequestHeader("x-api-key", "82436b-8c4f08-848b4a-ef5e67-b1bebb");
+
+    if (data != null) { // POST
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(data));
+    }
+    else { // GET
+        xhttp.send();
     }
 }
-
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var fakeName = JSON.parse(this.responseText);
-      console.log(fakeName);
-      displayFakeName(fakeName.name);
-    }
-};
-  xhttp.open("GET", url, true);
