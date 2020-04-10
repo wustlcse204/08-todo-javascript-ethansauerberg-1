@@ -71,26 +71,30 @@ function appendToDos(parsedToDos) {
         toDoItem.appendChild(checkButton);
         var deleteButton = document.createElement("button");
         toDoItem.appendChild(deleteButton);
-
         checkButton.innerText = "Mark Done";
         deleteButton.innerText = "Delete";
-        deleteButton.addEventListener("click", function () {
-            sendRequest('DELETE');
-        });
-        checkButton.addEventListener("click", function () {
-            console.log("sending request to mark item done");
-            sendRequest('PUT', "{'completed':true}");
-        });
-    
-        toDoItem.setAttribute("id", parsedToDos[i].id);
-
         toDoItem.className = "toDoItem";
         checkButton.className = "toDoItemCheckbox";
         deleteButton.className = "toDoItemDelete"
 
+
+        deleteButton.addEventListener("click", function () {
+            sendRequest('DELETE');
+        });
+
+        checkButton.addEventListener("click", function () {
+            var data = {
+                completed: true
+            }
+            sendRequest('PUT', data);
+        });
+    
+        toDoItem.setAttribute("id", parsedToDos[i].id);
+
         if(parsedToDos[i].completed == true) {
             console.log("Found a completed to-do item");
-            caption.setAttribute("text-decoration", "line-through");
+            caption.style.textDecoration = "line-through";
+            //FIX THIS HERE TO MAKE STRIKETHROUGH
         }
         ++i;
     }
