@@ -18,9 +18,14 @@
 * {
     color: #eeeeee;
 }
-form, input {
+form, input, button {
     color: #151515;
 }
 body {
     background-color: #151515;
+}
+
+listOfToDos {
+    border: 2px solid red;
+    background-color: red;
 }

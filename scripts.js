@@ -6,13 +6,20 @@ function onLoad() {
 
 
 var arrayOfDeletes = document.getElementsByClassName("ToDoItemDelete");
-for (var i; i < arrayOfDeletes.length; ++i) {
+console.log(arrayOfDeletes);
+/* for (var i = 0; i < arrayOfDeletes.length; ++i) {
     console.log("adding event listener #" + i);
     arrayOfDeletes[i].addEventListener("click", function () {
         console.log("delete request called");
         sendRequest("DELETE", null, arrayOfDeletes[i].id);
     })
-}
+}*/
+console.log(arrayOfDeletes[1]);
+arrayOfDeletes[1].addEventListener("click", function (event) {
+    event.preventDefault();
+    sendRequest("DELETE", null, arrayOfDeletes[1].id);
+})
+
 
 // need to fix error with only submitting half the time
 var addForm = document.getElementById("addForm");
@@ -25,6 +32,7 @@ addForm.addEventListener("submit", function () {
 
 
 function sendRequest(type, data, id) {
+    console.log("request of type " + type + " with data " + data);
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
@@ -60,17 +68,19 @@ function appendToDos(parsedToDos) {
     var i = 0;
     var listOfToDos = document.getElementById("listOfToDos");
     while (parsedToDos[i] != null) {
-        var newItem = document.createElement("div");
-        newItem.innerHTML = '<div class="toDoItem"><form><input type="checkbox" class="toDoItemCheckbox">';
-        newItem.innerHTML += '<span class="toDoItemCaption">' + parsedToDos[i].text + '</span>';
-        newItem.innerHTML += '<form><input type="button" class="ToDoItemDelete" value="X"></div>';
+        var toDoItem = document.createElement("div");
+        
+        toDoItem.innerHTML = '<div class="toDoItem"><form><input type="checkbox" class="toDoItemCheckbox">';
+        toDoItem.innerHTML += '<span class="toDoItemCaption">' + parsedToDos[i].text + '</span>';
+        toDoItem.innerHTML += '<button class="ToDoItemDelete">X</button></form></div>';
 
-        listOfToDos.appendChild(newItem);
+        listOfToDos.appendChild(toDoItem);
 
-        newItem.setAttribute("display", "inline");
-        newItem.setAttribute("margin", "5px");
-        newItem.setAttribute("vertical-align", "middle");
-        //console.log(parsedToDos[i]);
+        toDoItem.setAttribute("display", "inline");
+        toDoItem.setAttribute("margin", "5px");
+        toDoItem.setAttribute("vertical-align", "middle");
+        toDoItem.setAttribute("border", "2px solid red");
+        document.getElementById("title").setAttribute("border", "2px solid red");
         ++i;
 
     }
