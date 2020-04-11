@@ -81,21 +81,26 @@ function appendToDos(parsedToDos) {
         deleteButton.addEventListener("click", function () {
             sendRequest('DELETE');
         });
-
-        checkButton.addEventListener("click", function () {
-            var data = {
-                completed: true
-            }
-            sendRequest('PUT', data);
-        });
-    
-        toDoItem.setAttribute("id", parsedToDos[i].id);
-
-        if(parsedToDos[i].completed == true) {
+        if (parsedToDos[i].completed == false) {
+            checkButton.addEventListener("click", function () {
+                var data = {
+                    completed: true
+                }
+                sendRequest('PUT', data);
+            });
+        }
+        else {
             console.log("Found a completed to-do item");
             caption.style.textDecoration = "line-through";
-            //FIX THIS HERE TO MAKE STRIKETHROUGH
+            checkButton.innerText = "Mark Not Done";
+            checkButton.addEventListener("click", function () {
+                var data = {
+                    completed: false
+                }
+                sendRequest('PUT', data);
+            });
         }
+        toDoItem.setAttribute("id", parsedToDos[i].id);
         ++i;
     }
 }
