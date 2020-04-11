@@ -10,14 +10,15 @@ submitButton.addEventListener("click", function () {
     event.preventDefault();
     var name = document.getElementById("inputText").value;
     sendRequest("POST", { "text": name });
-    name.value == "";
+    refreshList();
+    submitButton.parentElement.reset();
     refreshList();
 });
 
 
 
 function sendRequest(type, data) {
-    console.log("request of type '" + type + "' with data '" + data + "'");
+    //console.log("request of type '" + type + "' with data '" + data + "'");
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
@@ -26,10 +27,10 @@ function sendRequest(type, data) {
             if (type == "GET") {
                 var parsedToDos = JSON.parse(this.responseText);
                 appendToDos(parsedToDos);
-                console.log(parsedToDos);
+                //console.log(parsedToDos);
             }
             else if (type == "DELETE" || type == "PUT") {
-                console.log("Response text to request of type '" + type + "' with data '" + data + "': " + this.responseText);
+                //console.log("Response text to request of type '" + type + "' with data '" + data + "': " + this.responseText);
                 refreshList();
             }
         }
@@ -90,7 +91,6 @@ function appendToDos(parsedToDos) {
             });
         }
         else {
-            console.log("Found a completed to-do item");
             caption.style.textDecoration = "line-through";
             checkButton.innerText = "Mark Not Done";
             checkButton.addEventListener("click", function () {
